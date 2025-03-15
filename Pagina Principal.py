@@ -1,6 +1,35 @@
 import streamlit as st
 import random
 
+st.set_page_config(
+    page_icon="espro.png",
+    page_title="QUIZ ESPRO"
+)
+
+st.logo("esproLogo.png")
+
+st.markdown("""
+    <style>
+        .css-1d391kg {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+        .stButton>button {
+            background-color: #2A6ACE;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .stButton>button:hover {
+            background-color: #112648;
+        }
+        .stRadio>div>label {
+            font-size: 16px;
+            font-weight: 500;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 perguntas_espro = [
     {"pergunta": "Qual é a missão principal da Espro?", "alternativas": ["Formar jovens para o mercado de trabalho", "Oferecer cursos de culinária", "Criar projetos sociais", "Atuar como consultoria"], "resposta": "Formar jovens para o mercado de trabalho"},
     {"pergunta": "Em que ano a Espro foi fundada?", "alternativas": ["1980", "1990", "2000", "2001"], "resposta": "2001"},
@@ -24,7 +53,7 @@ perguntas_espro = [
 
 def selecionar_perguntas():
     perguntas_selecionadas = random.sample(perguntas_espro, 5) 
-    random.shuffle(perguntas_selecionadas)  
+    random.shuffle(perguntas_selecionadas)
     for pergunta in perguntas_selecionadas:
         random.shuffle(pergunta["alternativas"])
     return perguntas_selecionadas
@@ -38,16 +67,16 @@ def verificar_respostas(perguntas_selecionadas):
     return respostas_certas
 
 def exibir_quiz():
-    st.title("Quiz sobre a Instituição Espro")
+    st.title("Quiz - ESPRO")
+    st.subheader("Selecione as respostas!!")
     
     if 'perguntas_selecionadas' not in st.session_state:
         st.session_state.perguntas_selecionadas = selecionar_perguntas()
     
     perguntas_selecionadas = st.session_state.perguntas_selecionadas
     
-    # Exibe as perguntas e alternativas
     for i, pergunta in enumerate(perguntas_selecionadas):
-        st.subheader(pergunta["pergunta"])
+        st.subheader(f"🎮 Pergunta {i+1}: {pergunta['pergunta']}")
         resposta = st.selectbox(
             f"Escolha uma alternativa para a pergunta {i+1}",
             ["Selecione uma resposta"] + pergunta["alternativas"],
@@ -56,6 +85,6 @@ def exibir_quiz():
     
     if st.button("Verificar Respostas"):
         respostas_certas = verificar_respostas(perguntas_selecionadas)
-        st.write(f"Você acertou {respostas_certas} de 5 perguntas!")
+        st.write(f"🏆 Você acertou {respostas_certas} de 5 perguntas!")
 
 exibir_quiz()
