@@ -8,6 +8,16 @@ st.set_page_config(
 
 st.logo("esproLogo.png")
 
+# Ocultar a barra:
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
 st.markdown("""
     <style>
         .css-1d391kg {
@@ -76,7 +86,7 @@ def exibir_quiz():
     perguntas_selecionadas = st.session_state.perguntas_selecionadas
     
     for i, pergunta in enumerate(perguntas_selecionadas):
-        st.subheader(f"🎮 Pergunta {i+1}: {pergunta['pergunta']}")
+        st.subheader(f"{i+1}) {pergunta['pergunta']}")
         resposta = st.selectbox(
             f"Escolha uma alternativa para a pergunta {i+1}",
             ["Selecione uma resposta"] + pergunta["alternativas"],
