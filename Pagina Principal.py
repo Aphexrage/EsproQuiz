@@ -94,5 +94,6 @@ def exibir_quiz():
     if st.button("Verificar Respostas"):
         respostas_certas = verificar_respostas(perguntas_selecionadas)
         st.write(f"🏆 Você acertou {respostas_certas} de 5 perguntas!")
-
+        st.balloons()
+        
 exibir_quiz()
